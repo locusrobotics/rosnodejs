@@ -32,5 +32,7 @@ node_modules
 # Optional REPL history
 .node_repl_history
 
+# ablakey (2025) We're checking in the build repo for now to skip the step of having to build this repo in CI.
+# If we weren't dropping this for ROS2 we might want to look into a heavier refactor.
 # ignore the build repo
-dist/
+# dist/
