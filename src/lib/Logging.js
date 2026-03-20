@@ -60,12 +60,7 @@ class LoggingManager {
     // initialize the root logger with a console stream
     const rootLoggerOptions = {
       name: DEFAULT_LOGGER_NAME,
-      streams: [{
-        type: 'raw',
-        name: 'ConsoleLogStream',
-        stream: new ConsoleLogStream({formatter: LogFormatter}),
-        level: 'info'
-      }],
+      streams: [],
       level: 'info'
     };
     this.rootLogger = new Logger(rootLoggerOptions);
@@ -91,6 +86,16 @@ class LoggingManager {
   }
 
   initializeNodeLogger(nodeName, options={}) {
+
+
+    if (!options.disableConsoleLogging) {
+        this.addStream({
+        type: 'raw',
+        name: 'ConsoleLogStream',
+        stream: new ConsoleLogStream({formatter: LogFormatter}),
+        level: 'info'
+      })
+    }
 
     // setup desired streams
     if (options.hasOwnProperty('streams')) {
