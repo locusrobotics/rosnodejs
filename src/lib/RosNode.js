@@ -696,6 +696,10 @@ class RosNode extends EventEmitter {
   _handleShutdown(err, params, callback) {
     let caller = params[0];
     this._log.warn('Received shutdown command from ' + caller);
+    // Acknowledge the caller before shutting down. The xmlrpc server only writes
+    // an HTTP response when this callback fires, so failing to call it causes
+    // `rosnode kill` to hang waiting for an acknowledgement that never arrives.
+    callback(null, [1, 'shutdown received', 0]);
     return this.shutdown();
   }
 
